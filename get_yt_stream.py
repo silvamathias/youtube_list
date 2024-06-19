@@ -65,6 +65,20 @@ class you_tube():
         for video in self.yt_list.videos:
             video.streams.filter(only_audio = True).last().download(output_path = folder_name)
 
+    def type_mka(self):
+        replace_type = lambda lin: [x.replace('.webm', '.mka') for x in lin]
+        try:
+            name_list = os.listdir(self.title)
+            new_list = replace_type(name_list)
+            doc_zip = zip(name_list, new_list)
+
+            for a, b in doc_zip:
+                os.rename('{}/{}'.format(self.title,a), '{}/{}'.format(self.title,b))
+
+        except:
+            print('Pasta ou arquivos não encontrados')
+        
+
 # %%
 list_txt = []
 with open('yt_list.txt', 'r') as txt:
@@ -79,6 +93,7 @@ for item in list_txt:
     #new_yt.get_url_thumb(num_video = 13)
     new_yt.get_thumb()
     new_yt.get_audio()
+    new_yt.type_mka()
 
 
 
