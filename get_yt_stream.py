@@ -66,14 +66,9 @@ class you_tube():
             video.streams.filter(only_audio = True).last().download(output_path = folder_name)
 
     def type_mka(self):
-        replace_type = lambda lin: [x.replace('.webm', '.mka') for x in lin]
         try:
-            name_list = os.listdir(self.title)
-            new_list = replace_type(name_list)
-            doc_zip = zip(name_list, new_list)
-
-            for a, b in doc_zip:
-                os.rename('{}/{}'.format(self.title,a), '{}/{}'.format(self.title,b))
+            for arq in os.listdir(self.title):
+                os.rename('{}/{}'.format(self.title,arq), '{}/{}'.format(self.title,arq.replace('.webm', '.mka')))
 
         except:
             print('Pasta ou arquivos não encontrados')
