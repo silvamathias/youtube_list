@@ -40,7 +40,6 @@ class you_tube():
             print(err)
 
         
-
     def get_thumb(self, path = ''):
         if path == '':
             path = self.folder
@@ -63,15 +62,13 @@ class you_tube():
             folder_name = self.folder
             
         for video in self.yt_list.videos:
-            video.streams.filter(only_audio = True).last().download(output_path = folder_name)
+            video.streams.filter(only_audio = True).last().download(output_path = folder_name, filename = video.title + '.mka')
 
-    def type_mka(self):
-        try:
-            for arq in os.listdir(self.title):
-                os.rename('{}/{}'.format(self.title,arq), '{}/{}'.format(self.title,arq.replace('.webm', '.mka')))
 
-        except:
-            print('Pasta ou arquivos não encontrados')
+    def get_single_audio(url):
+        video = yt.YouTube(url)
+
+        video.streams.filter(only_audio = True).last().download(filename = video.title + '.mka')
         
 
 # %%
@@ -88,7 +85,6 @@ for item in list_txt:
     #new_yt.get_url_thumb(num_video = 13)
     new_yt.get_thumb()
     new_yt.get_audio()
-    new_yt.type_mka()
 
 
 
